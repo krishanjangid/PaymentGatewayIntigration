@@ -1,22 +1,15 @@
 import { memo } from "react";
 import { useDrop } from "react-dnd";
 const style = {
-    height: '12rem',
-    width: '12rem',
-    marginRight: '1.5rem',
-    marginBottom: '1.5rem',
-    color: 'white',
-    padding: '1rem',
-    textAlign: 'center',
-    fontSize: '1rem',
-    lineHeight: 'normal',
-    float: 'left',
-    backgroundColor: 'black',
-  }
+  textAlign: "center",
+};
 
 export const ItemBoxContainer = memo(function ItemBoxContainer({
   accept,
   onDrop,
+  src,
+  name,
+
 }) {
   const [{ isOver, canDrop }, drop] = useDrop({
     accept,
@@ -27,21 +20,27 @@ export const ItemBoxContainer = memo(function ItemBoxContainer({
     }),
   });
   const isActive = isOver && canDrop;
-  let backgroundColor = "#222";
+  let backgroundColor = "#E84F8F63";
+  let opacity = 0.7;
   if (isActive) {
-    backgroundColor = "darkgreen";
+    backgroundColor = "#E84F8F";
+    opacity = 0.7;
   } else if (canDrop) {
-    backgroundColor = "darkkhaki";
-  }
+    backgroundColor = "#E84F8F90";
+    opacity = 0.9;
+  } 
 
   return (
-    <div
-      ref={drop}
-      style={{...style, backgroundColor }}
-      data-testid="ItemBoxContainer"
-    >
-      {isActive ? "Release Image to drop" : "Drag Image here"}
-      cvcvcvcvc
+    <div className="flex flex-row justify-between items-center w-[185px] h-[50px] mt-5 mn-5 mx-3">
+      <p>{name}</p>
+      <div
+        ref={drop}
+        style={{ ...style, backgroundColor, opacity }}
+        data-testid="ItemBoxContainer"
+        className=" border-[1px]  w-[49px] h-[49px] rounded-[3px] border-[#E84F8F63]"
+      >
+       <img src={src}  className="aspect-square w-[55px]  rounded-[2px]"/>
+      </div>
     </div>
   );
 });
